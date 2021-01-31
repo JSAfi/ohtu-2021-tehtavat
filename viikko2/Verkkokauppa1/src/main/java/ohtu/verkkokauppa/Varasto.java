@@ -1,24 +1,16 @@
 package ohtu.verkkokauppa;
 
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
 public class Varasto implements VarastoInterface {
 
-    private static Varasto instanssi;
+    private KirjanpitoInterface kirjanpito;
+    private HashMap<Tuote, Integer> saldot;
 
-    public static Varasto getInstance() {
-        if (instanssi == null) {
-            instanssi = new Varasto();
-        }
-
-        return instanssi;
-    }
-    
-    private Kirjanpito kirjanpito;
-    private HashMap<Tuote, Integer> saldot;  
-    
-    private Varasto() {
-        kirjanpito = Kirjanpito.getInstance();
+    public Varasto(KirjanpitoInterface kirjanpito) {
+        this.kirjanpito = kirjanpito;
         saldot = new HashMap<Tuote, Integer>();
         alustaTuotteet();
     }
