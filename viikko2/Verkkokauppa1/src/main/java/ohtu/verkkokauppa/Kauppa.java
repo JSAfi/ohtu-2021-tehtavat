@@ -3,14 +3,14 @@ package ohtu.verkkokauppa;
 public class Kauppa {
 
     private VarastoInterface varasto;
-    private Pankki pankki;
+    private PankkiInterface pankki;
     private Ostoskori ostoskori;
-    private Viitegeneraattori viitegeneraattori;
+    private GeneraattoriInterface viitegeneraattori;
     private String kaupanTili;
 
-    public Kauppa(VarastoInterface vi, GeneraattoriInterface gi) {
+    public Kauppa(VarastoInterface vi, PankkiInterface pi, GeneraattoriInterface gi) {
         varasto = vi;
-        pankki = Pankki.getInstance();
+        pankki = pi;
         viitegeneraattori = gi;
         kaupanTili = "33333-44455";
     }
