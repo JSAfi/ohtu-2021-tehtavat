@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class Varasto implements VarastoInterface {
 
     private KirjanpitoInterface kirjanpito;
