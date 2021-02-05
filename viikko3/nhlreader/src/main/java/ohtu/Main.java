@@ -16,10 +16,14 @@ public class Main {
         Gson mapper = new Gson();
         Player[] players = mapper.fromJson(bodyText, Player[].class);
 
+        
+
         System.out.println("Oliot:");
         for (Player player : players) {
             System.out.println(player);
         }
+
+
     }
 
 }
