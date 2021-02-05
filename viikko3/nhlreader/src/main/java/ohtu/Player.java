@@ -16,8 +16,8 @@ public class Player {
     public void setNationality(String nationality) { this.nationality = nationality; }
     public void setTeam(String team) { this.team = team; }
     public void setGames(int games) { this.games = games; }
-    public void setAssists(int assists) { this.assists = assists; this.points = this.assists + this.points; }
-    public void setGoals(int goals) { this.goals = goals; this.points = this.assists + this.points; }
+    public void setAssists(int assists) { this.assists = assists; }
+    public void setGoals(int goals) { this.goals = goals; }
 
     public String getName() {
         return name;
@@ -27,11 +27,11 @@ public class Player {
     public int getGames() { return this.games; }
     public int getAssists() { return this.assists; }
     public int getGoals() { return this.goals; }
-    public int getPoints() { return this.points; }
+    public int getPoints() { return this.goals + this.assists; }
 
     @Override
     public String toString() {
-        return name + " from " + nationality + " playing for " + team + ", " + goals + " + " + assists + " in " + games + " matches.";
+       return name + " from " + nationality + " playing for " + team + ", " + goals + " + " + assists + " = " + getPoints() + " in " + games + " matches.";
     }
       
 }
