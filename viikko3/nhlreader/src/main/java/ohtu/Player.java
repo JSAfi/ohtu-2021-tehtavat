@@ -8,7 +8,6 @@ public class Player {
     private int games;
     private int assists;
     private int goals;
-    private int points;
 
     public void setName(String name) {
         this.name = name;
