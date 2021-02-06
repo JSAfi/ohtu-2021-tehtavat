@@ -40,6 +40,32 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
+        if (username.length()<3) {
+            return true;
+        }
+        // check password length
+        if (password.length()<8) {
+            return true;
+        }
+        // does pw contain only characters ?
+        boolean foundDigit = false;
+
+        for(char c : password.toCharArray()) {
+            if (Character.isDigit(c)) {
+                foundDigit = true;
+            }
+        }
+
+        if (foundDigit == false) {
+            return true;
+        }
+/*
+        for (User user : userDao.listAll()) {
+            // check if username is available
+            if(user.getUsername().equals(username)) {
+                return true;
+            }
+        }*/
 
         return false;
     }
