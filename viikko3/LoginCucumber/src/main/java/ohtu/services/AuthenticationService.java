@@ -59,13 +59,13 @@ public class AuthenticationService {
         if (foundDigit == false) {
             return true;
         }
-/*
+
         for (User user : userDao.listAll()) {
             // check if username is available
             if(user.getUsername().equals(username)) {
                 return true;
             }
-        }*/
+        }
 
         return false;
     }
