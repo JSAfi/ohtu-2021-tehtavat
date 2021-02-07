@@ -42,6 +42,7 @@ public class FileUserDao implements UserDao {
 
     @Override
     public void add(User newUser) {
+
         users.add(newUser);
         
         try{

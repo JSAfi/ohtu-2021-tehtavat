@@ -34,21 +34,14 @@ public class AuthenticationService {
             status.addError("username should have at least 3 characters");
         }
 
-        if (status.isOk()) {
-            userDao.add(new User(username, password));
-        }
-        
-        return status;
-    }
-    private boolean invalid(String username, String password) {
-        // validity check of username and password
-        if (username.length()<3) {
-            return true;
-        }
-        // check password length
         if (password.length()<8) {
-            return true;
+            status.addError("password should have at least 8 characters");
         }
+
+        if (password.equals(passwordConfirmation) == false) {
+            status.addError("password and password confirmation do not match");
+        }
+
         // does pw contain only characters ?
         boolean foundDigit = false;
 
@@ -58,17 +51,14 @@ public class AuthenticationService {
             }
         }
 
-        if (foundDigit == false) {
-            return true;
+        if(foundDigit == false) {
+            status.addError("password does not contain at least one digit");
         }
-/*
-        for (User user : userDao.listAll()) {
-            // check if username is available
-            if(user.getUsername().equals(username)) {
-                return true;
-            }
-        }*/
 
-        return false;
+        if (status.isOk()) {
+            userDao.add(new User(username, password));
+        }
+        
+        return status;
     }
 }
