@@ -43,7 +43,12 @@ public class Stepdefs {
         pageHasContent("invalid username or password");
         pageHasContent("Give your credentials to login");
     }    
-    
+
+    @When("correct but unregistered username {string} and password {string} are given")
+    public void nonExistentUserAttemptsToLogin(String username, String password) {
+        logInWith(username, password);
+    }
+
     @When("username {string} and password {string} are given")
     public void usernameAndPasswordAreGiven(String username, String password) throws Throwable {
         logInWith(username, password);
