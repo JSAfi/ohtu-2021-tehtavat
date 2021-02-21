@@ -40,5 +40,21 @@ public class KassapaateTest {
         verify(kortti, times(1)).getSaldo();
         verify(kortti, times(0)).osta(anyInt());
     }
-      
+/*
+kassapäätteen metodin lataa kutsu lisää maksukortille ladattavan rahamäärän käyttäen kortin metodia lataa
+jos ladattava summa on positiivinen
+*/
+    @Test
+    public void lisaaPositiivisenSummanKortille() {
+        kassa.lataa(kortti, 10);
+        verify(kortti).lataa(eq(10));
+    }
+/*
+kassapäätteen metodin lataa kutsu ei tee maksukortille mitään jos ladattava summa on negatiivinen
+ */
+    @Test
+    public void alaLataaNegatiivistaSummaaKassasta() {
+        kassa.lataa(kortti, -10);
+        verify(kortti, times(0)).lataa(anyInt());
+    }
 }
