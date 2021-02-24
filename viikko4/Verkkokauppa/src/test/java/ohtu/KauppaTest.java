@@ -67,7 +67,7 @@ public class KauppaTest {
         k.aloitaAsiointi();
         k.lisaaKoriin(2);
         k.tilimaksu("mai", "12345-666");
-        
+
         verify(mockViite, times(3)).uusi();
     }
     @Test
