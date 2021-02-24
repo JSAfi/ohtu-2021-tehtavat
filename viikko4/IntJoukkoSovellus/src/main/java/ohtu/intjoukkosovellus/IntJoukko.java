@@ -17,22 +17,22 @@ public class IntJoukko {
     }
 
     public IntJoukko(int kapasiteetti) {
-        testaaParametrinPositiivisuus(kapasiteetti, "Joukon kapasiteetti ei voi olla negatiivinen!");
+        testaaIndeksiParametrinPositiivisuus(kapasiteetti, "Joukon kapasiteetti ei voi olla negatiivinen!");
         ljono = luoNollaTaulukko(kapasiteetti);
         alkioidenLkm = 0;
         this.kasvatuskoko = OLETUSKASVATUS;
     }
     
     public IntJoukko(int kapasiteetti, int kasvatuskoko) {
-        testaaParametrinPositiivisuus(kapasiteetti, "Joukon kapasiteetti ei voi olla negatiivinen!");
-        testaaParametrinPositiivisuus(kasvatuskoko, "Joukkoa ei voi kasvattaa negatiivisella määrällä");
+        testaaIndeksiParametrinPositiivisuus(kapasiteetti, "Joukon kapasiteetti ei voi olla negatiivinen!");
+        testaaIndeksiParametrinPositiivisuus(kasvatuskoko, "Joukkoa ei voi kasvattaa negatiivisella määrällä");
         ljono = luoNollaTaulukko(kapasiteetti);
         alkioidenLkm = 0;
 
         this.kasvatuskoko = kasvatuskoko;
     }
 
-    public static void testaaParametrinPositiivisuus(int testattavaParametri, String poikkeus) {
+    public static void testaaIndeksiParametrinPositiivisuus(int testattavaParametri, String poikkeus) {
         if (testattavaParametri<0) {
             throw new IndexOutOfBoundsException(poikkeus);
         }
@@ -159,12 +159,11 @@ public class IntJoukko {
 
     public static IntJoukko leikkaus(IntJoukko a, IntJoukko b) {
         IntJoukko y = new IntJoukko();
-        int[] aTaulu = a.toIntArray();
-        int[] bTaulu = b.toIntArray();
-        for (int i = 0; i < aTaulu.length; i++) {
-            for (int j = 0; j < bTaulu.length; j++) {
-                if (aTaulu[i] == bTaulu[j]) {
-                    y.lisaa(bTaulu[j]);
+
+        for (int i = 0; i < a.alkioidenLkm; i++) {
+            for (int j = 0; j < b.alkioidenLkm; j++) {
+                if (a.getArvo(i) == b.getArvo(j)) {
+                    y.lisaa(b.getArvo(j));
                 }
             }
         }
@@ -174,13 +173,12 @@ public class IntJoukko {
     
     public static IntJoukko erotus ( IntJoukko a, IntJoukko b) {
         IntJoukko z = new IntJoukko();
-        int[] aTaulu = a.toIntArray();
-        int[] bTaulu = b.toIntArray();
-        for (int i = 0; i < aTaulu.length; i++) {
-            z.lisaa(aTaulu[i]);
+
+        for (int i = 0; i < a.alkioidenLkm; i++) {
+            z.lisaa(a.getArvo(i));
         }
-        for (int i = 0; i < bTaulu.length; i++) {
-            z.poista(bTaulu[i]);
+        for (int i = 0; i < b.alkioidenLkm; i++) {
+            z.poista(b.getArvo(i));
         }
  
         return z;
