@@ -28,6 +28,21 @@ public class KauppaTest {
         when(varasto.haeTuote(2)).thenReturn(new Tuote(2, "mämmi", 2));
         when(varasto.haeTuote(3)).thenReturn(new Tuote(3, "piirakka", 10));
     }
+    /* Testataan korista poistaminen.
+    *  Varaston palautaVarastoon -metodia on tällöin pitänyt kutsua kerran
+    *  ja kutsussa pitänyt olla parametrina sama tuote kuin mitä on ollut tarkoitus poistaa korista ja palauttaa
+    *  varastoon
+    * */
+    @Test
+    public void testaaPoistaKorista() {
+        Kauppa k = new Kauppa(this.varasto, this.pankki, this.viite);
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.lisaaKoriin(1);
+        k.poistaKorista(1);
+        k.tilimaksu("mai", "12345-666");
+        verify(varasto, times(1)).palautaVarastoon(new Tuote(1, "maito", 2));
+    }
     @Test
     public void aloitaAsiointiNollaaEdellisenOstoksenTiedot() {
         Kauppa k = new Kauppa(this.varasto, this.pankki, this.viite);
