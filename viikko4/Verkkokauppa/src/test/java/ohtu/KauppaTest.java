@@ -29,6 +29,48 @@ public class KauppaTest {
         when(varasto.haeTuote(3)).thenReturn(new Tuote(3, "piirakka", 10));
     }
     @Test
+    public void aloitaAsiointiNollaaEdellisenOstoksenTiedot() {
+        Kauppa k = new Kauppa(this.varasto, this.pankki, this.viite);
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.lisaaKoriin(1);
+        k.tilimaksu("mai", "12345-666");
+        verify(pankki).tilisiirto(anyString(), anyInt(), anyString(), anyString(), eq(10));
+        k.aloitaAsiointi();
+
+        /* Tuote 2 maksa 2 rahaa, jos korissa olisi jotain jäljellä edellisestä kerrasta, tilimaksu olisi jotain muuta
+            kuin 2
+         */
+        k.lisaaKoriin(2);
+        k.tilimaksu("mai", "12345-666");
+        verify(pankki).tilisiirto(anyString(), anyInt(), anyString(), anyString(), eq(2));
+    }
+    /*
+    Testataan että joka maksutapahtumassa pyydetään uusi viitenumero;
+    Tehdään mock viitegeneraattori, varmistetaan että sen viitenumeron generointia on kutsuttu
+    yhtä monta kertaa kuin on ostostapahtumia
+     */
+    @Test
+    public void kauppaPyytaaUudenViitenumeron() {
+        Viitegeneraattori mockViite = mock(Viitegeneraattori.class);
+
+        Kauppa k = new Kauppa(this.varasto, this.pankki, mockViite);
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.tilimaksu("mai", "12345-666");
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(2);
+        k.lisaaKoriin(1);
+        k.tilimaksu("mai", "12345-666");
+
+        k.aloitaAsiointi();
+        k.lisaaKoriin(2);
+        k.tilimaksu("mai", "12345-666");
+        
+        verify(mockViite, times(3)).uusi();
+    }
+    @Test
     public void testaaLoppunutTuote() {
         Kauppa k = new Kauppa(this.varasto, this.pankki, this.viite);
         k.aloitaAsiointi();
