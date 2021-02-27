@@ -108,7 +108,6 @@ public class IntJoukko {
         return alkioidenLkm;
     }
 
-
     @Override
     public String toString() {
         if (alkioidenLkm == 0) {
@@ -147,41 +146,42 @@ public class IntJoukko {
     }
 
     public static IntJoukko yhdiste(IntJoukko a, IntJoukko b) {
-        IntJoukko x = new IntJoukko();
+        IntJoukko yhdisteJoukko = new IntJoukko();
+
         for (int i = 0; i < a.alkioidenLkm; i++) {
-            x.lisaa(a.getArvo(i));
+            yhdisteJoukko.lisaa(a.getArvo(i));
         }
         for (int i = 0; i < b.alkioidenLkm; i++) {
-            x.lisaa(b.getArvo(i));
+            yhdisteJoukko.lisaa(b.getArvo(i));
         }
-        return x;
+        return yhdisteJoukko;
     }
 
     public static IntJoukko leikkaus(IntJoukko a, IntJoukko b) {
-        IntJoukko y = new IntJoukko();
+        IntJoukko leikkausJoukko = new IntJoukko();
 
         for (int i = 0; i < a.alkioidenLkm; i++) {
             for (int j = 0; j < b.alkioidenLkm; j++) {
                 if (a.getArvo(i) == b.getArvo(j)) {
-                    y.lisaa(b.getArvo(j));
+                    leikkausJoukko.lisaa(b.getArvo(j));
                 }
             }
         }
-        return y;
+        return leikkausJoukko;
 
     }
     
     public static IntJoukko erotus ( IntJoukko a, IntJoukko b) {
-        IntJoukko z = new IntJoukko();
+        IntJoukko erotusJoukko = new IntJoukko();
 
         for (int i = 0; i < a.alkioidenLkm; i++) {
-            z.lisaa(a.getArvo(i));
+            erotusJoukko.lisaa(a.getArvo(i));
         }
         for (int i = 0; i < b.alkioidenLkm; i++) {
-            z.poista(b.getArvo(i));
+            erotusJoukko.poista(b.getArvo(i));
         }
  
-        return z;
+        return erotusJoukko;
     }
         
 }
