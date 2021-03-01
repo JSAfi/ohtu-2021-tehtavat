@@ -1,79 +1,117 @@
 package ohtu;
 
+
+import java.util.HashMap;
+
+import static java.lang.Math.abs;
+
 public class TennisGame {
-    
-    private int m_score1 = 0;
-    private int m_score2 = 0;
     private String player1Name;
     private String player2Name;
+
+    private HashMap<Integer, String> pointsAsStrings;
+    private HashMap<String, Integer> points;
 
     public TennisGame(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
+
+        this.points = new HashMap<String, Integer>();
+        this.points.put(player1Name, 0);
+        this.points.put(player2Name, 0);
+
+        this.pointsAsStrings = new HashMap<Integer, String>();
+        this.pointsAsStrings.put(0, "Love");
+        this.pointsAsStrings.put(1, "Fifteen");
+        this.pointsAsStrings.put(2, "Thirty");
+        this.pointsAsStrings.put(3, "Forty");
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
-            m_score1 += 1;
-        else
-            m_score2 += 1;
+        if (this.points.containsKey(playerName)) {
+            int currentPoints = this.points.get(playerName);
+            this.points.put(playerName, currentPoints+1);
+        }
     }
+
+    public int getPointsForPlayer(String playerName) {
+        if (this.points.containsKey(playerName)) {
+            return this.points.get(playerName);
+        } else {
+            return -1;
+        }
+    }
+    public String getPointsAsString(int points) {
+        if (this.pointsAsStrings.containsKey(points)) {
+            return this.pointsAsStrings.get(points);
+        }
+        return "Value of points out of bounds!";
+    }
+    public String getPointsAsString(String playerName) {
+        if(this.points.containsKey(playerName)) {
+            int currentScore = points.get(playerName);
+            return this.pointsAsStrings.get(currentScore);
+        }
+        return "Value of points out of bounds!";
+    }
+    public int getMaxScore() {
+        if (this.getPointsForPlayer(this.player1Name) > this.getPointsForPlayer(this.player2Name)) {
+            return getPointsForPlayer(this.player1Name);
+        }
+        return this.getPointsForPlayer(this.player2Name);
+    }
+    public String getPlayerWithMaxScore() {
+        if (getPointsForPlayer(player1Name) == getMaxScore()) {
+            return player1Name;
+        }
+        return player2Name;
+    }
+    public int getScoreDifference() {
+        return abs(getPointsForPlayer(this.player1Name) - getPointsForPlayer(this.player2Name));
+    }
+
+    public boolean scoreIsEven() {
+        if (getPointsForPlayer(player1Name) == getPointsForPlayer(player2Name)) {
+            return true;
+        }
+        return false;
+    }
+    public String getTieScore() {
+        if (scoreIsEven() && getMaxScore() < 4) {
+            return getPointsAsString(player1Name) + "-All";
+        }
+        return "Deuce";
+    }
+
+    public boolean hasPlayerWon(String playerName) {
+        if (getScoreDifference() > 1  && playerName.equals(getPlayerWithMaxScore()) && getMaxScore() > 3) {
+            return true;
+        }
+        return false;
+    }
+    public boolean hasAdvantage(String playerName) {
+        if (getMaxScore() > 3 && getScoreDifference() == 1 && playerName.equals(getPlayerWithMaxScore())) {
+             return true;
+        }
+        return false;
+    }
+
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
-        if (m_score1==m_score2)
-        {
-            switch (m_score1)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                case 3:
-                        score = "Forty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
-            }
-        }
-        else if (m_score1>=4 || m_score2>=4)
-        {
-            int minusResult = m_score1-m_score2;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
-        }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = m_score1;
-                else { score+="-"; tempScore = m_score2;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
+
+        if (hasPlayerWon(player1Name)) {
+            score = "Win for " + player1Name;
+        } else if (hasPlayerWon(player2Name)) {
+            score = "Win for " + player2Name;
+        } else if (hasAdvantage(player1Name)) {
+            score = "Advantage " + player1Name;
+        } else if (hasAdvantage(player2Name)) {
+            score = "Advantage " + player2Name;
+        } else if (!scoreIsEven()) {
+            score = this.getPointsAsString(this.player1Name) + "-" + this.getPointsAsString(this.player2Name);
+        } else {
+            score = getTieScore();
         }
         return score;
     }
