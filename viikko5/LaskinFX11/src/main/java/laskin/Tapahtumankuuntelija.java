@@ -43,37 +43,4 @@ public class Tapahtumankuuntelija implements EventHandler {
             this.edellinen = null;
         }
     }
-    /*
-    @Override
-    public void handle(Event event) {
-        int arvo = 0;
- 
-        try {
-            arvo = Integer.parseInt(syotekentta.getText());
-        } catch (Exception e) {
-        }
- 
-        if (event.getTarget() == plus) {
-            sovellus.plus(arvo);
-        } else if (event.getTarget() == miinus) {
-            sovellus.miinus(arvo);
-        } else if (event.getTarget() == nollaa) {
-            sovellus.nollaa();
-        } else {
-            System.out.println("undo pressed");
-        }
-        
-        int laskunTulos = sovellus.tulos();
-        
-        syotekentta.setText("");
-        tuloskentta.setText("" + laskunTulos);
-        
-        if ( laskunTulos==0) {
-            nollaa.disableProperty().set(true);
-        } else {
-            nollaa.disableProperty().set(false);
-        }
-        undo.disableProperty().set(false);
-    }
-    */
 }
