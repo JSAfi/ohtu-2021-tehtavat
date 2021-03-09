@@ -9,6 +9,8 @@ public class Summa extends Komento {
     private TextField syotekentta;
     private Button nollaa;
     private Button undo;
+    private int edeltavaArvo;
+
     public Summa(TextField tuloskentta, TextField syotekentta,  Button plus, Button miinus, Button nollaa, Button undo, Sovelluslogiikka sovellus) {
         super();
         this.sovelluslogiikka = sovellus;
@@ -24,16 +26,27 @@ public class Summa extends Komento {
             syote = Integer.parseInt(syotekentta.getText());
         }
 
+        this.edeltavaArvo = sovelluslogiikka.tulos();
+
         this.sovelluslogiikka.plus(syote);
 
+        paivitaMuutKomponentit();
+    }
 /*
- * METODIN KOHEESIO HEIKKENEE TÄSSÄ:
- * on tyhmää että metodissa päivitetään myös käyttöliittymän komponenttien arvoja
- * ei liity tähän komentoon itsessään eli metodi tekee monia asioita
- * muutakin kuin alkuperäisen tehtävänsä
- * en valitettavasti osaa korjata tehokkaasti tätä
+* Undo toiminto perustuu edellisen tulosrivin arvon tallentamiseen
+* Sovelluslogiikkaan voisi koodata asetaArvo -metodin
+* Mutta tässä lasketaan muutos edelliseen arvoon nähden kun palautus tehdään
+* ja suoritetaan laskutoiminto
  */
+    public void peru() {
 
+        int muutosEdelliseen = sovelluslogiikka.tulos() - this.edeltavaArvo;
+
+        sovelluslogiikka.miinus(muutosEdelliseen);
+
+        paivitaMuutKomponentit();
+    }
+    private void paivitaMuutKomponentit() {
         int laskunTulos = sovelluslogiikka.tulos();
         this.tuloskentta.setText("" + laskunTulos);
         this.syotekentta.setText("");
@@ -45,8 +58,5 @@ public class Summa extends Komento {
         }
 
         this.undo.disableProperty().set(false);
-    }
-    public void peru() {
-
     }
 }

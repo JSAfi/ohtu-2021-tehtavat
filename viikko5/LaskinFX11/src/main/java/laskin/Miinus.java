@@ -9,6 +9,7 @@ public class Miinus extends Komento{
     private TextField syotekentta;
     private Button nollaa;
     private Button undo;
+    private int edeltavaArvo;
     public Miinus(TextField tuloskentta, TextField syotekentta, Button plus, Button miinus, Button nollaa, Button undo, Sovelluslogiikka sovellus) {
         super();
         this.sovelluslogiikka = sovellus;
@@ -23,15 +24,20 @@ public class Miinus extends Komento{
         if(!syotekentta.getText().equals("")) {
             syote = Integer.parseInt(syotekentta.getText());
         }
+        this.edeltavaArvo = sovelluslogiikka.tulos();
 
         this.sovelluslogiikka.miinus(syote);
-/*
-* METODIN KOHEESIO HEIKKENEE TÄSSÄ:
-* on tyhmää että metodissa päivitetään myös käyttöliittymän komponenttien arvoja
-* ei liity tähän komentoon itsessään eli metodi tekee monia asioita
-* muutakin kuin alkuperäisen tehtävänsä
-* en valitettavasti osaa korjata tehokkaasti tätä
- */
+
+        this.paivitaMuutKomponentit();
+    }
+    public void peru() {
+        int muutosEdelliseen = this.edeltavaArvo - sovelluslogiikka.tulos();
+
+        sovelluslogiikka.plus(muutosEdelliseen);
+
+        this.paivitaMuutKomponentit();
+    }
+    private void paivitaMuutKomponentit() {
         int laskunTulos = sovelluslogiikka.tulos();
         this.tuloskentta.setText("" + laskunTulos);
         this.syotekentta.setText("");
@@ -43,8 +49,5 @@ public class Miinus extends Komento{
         }
 
         this.undo.disableProperty().set(false);
-    }
-    public void peru() {
-
     }
 }
