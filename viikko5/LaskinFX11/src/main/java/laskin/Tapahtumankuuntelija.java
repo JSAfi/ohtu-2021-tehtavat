@@ -30,6 +30,7 @@ public class Tapahtumankuuntelija implements EventHandler {
         this.komennot = new HashMap<>();
         this.komennot.put(plus, new Summa(tuloskentta, syotekentta, plus, miinus, nollaa, undo, sovellus));
         this.komennot.put(miinus, new Miinus(tuloskentta, syotekentta, plus, miinus, nollaa, undo, sovellus));
+        this.komennot.put(nollaa, new Nollaa(tuloskentta, syotekentta, plus, miinus, nollaa, undo, sovellus));
     }
     @Override
     public void handle(Event event) {
