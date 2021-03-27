@@ -2,7 +2,7 @@ package ohtu.kivipaperisakset;
 
 import java.util.Scanner;
 
-public class KPSPelaajaVsPelaaja {
+public class KPSPelaajaVsPelaaja  {
 
     private static final Scanner scanner = new Scanner(System.in);
 
