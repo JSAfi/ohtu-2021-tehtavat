@@ -35,7 +35,7 @@ public abstract class KiviPaperiSakset {
     // tämä on abstrakti metodi sillä sen toteutus vaihtelee eri pelityypeissä
     abstract protected String toisenSiirto();
 
-    // tämän metodin tarkoitus on päivittää pelitilanne tekoälyä tai pelin toimintalogiikkaa varten
+    // tämän metodin tarkoitus on päivittää pelitilanne tekoälyä tai muuta pelin toimintalogiikkaa varten
     // metodin avulla voisi esimerkiksi antaa ihmispelaajalle ehdotuksen seuraavasta siirrosta
     // "oikeassa käytössä" tarvitsisi luultavasti myös tiedon toisen pelaajan siirrosta
     abstract protected void paivitaPeliTilanne(String siirto);
