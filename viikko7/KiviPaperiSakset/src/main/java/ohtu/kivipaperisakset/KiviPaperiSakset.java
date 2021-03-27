@@ -8,6 +8,7 @@ public abstract class KiviPaperiSakset {
     public void pelaa() {
         Tuomari tuomari = new Tuomari();
 
+        // aloitussiirrot
         String ekanSiirto = ensimmaisenSiirto();
         String tokanSiirto = toisenSiirto();
 

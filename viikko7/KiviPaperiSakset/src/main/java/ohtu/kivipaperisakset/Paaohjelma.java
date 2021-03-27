@@ -7,7 +7,7 @@ public class Paaohjelma {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
+        KPSPeliTehdas pelattavaPeli = new KPSPeliTehdas();
         while (true) {
             System.out.println("\nValitse pelataanko"
                     + "\n (a) ihmistä vastaan "
@@ -18,16 +18,13 @@ public class Paaohjelma {
             String vastaus = scanner.nextLine();
             if (vastaus.endsWith("a")) {
                 System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
-                KPSPelaajaVsPelaaja kaksinpeli = new KPSPelaajaVsPelaaja();
-                kaksinpeli.pelaa();
+                pelattavaPeli.luoKaksinpeli().pelaa();
             } else if (vastaus.endsWith("b")) {
                 System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
-                KPSTekoaly yksinpeli = new KPSTekoaly();
-                yksinpeli.pelaa();
+                pelattavaPeli.luoTekoalyPeli().pelaa();
             } else if (vastaus.endsWith("c")) {
                 System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
-                KPSParempiTekoaly pahaYksinpeli = new KPSParempiTekoaly();
-                pahaYksinpeli.pelaa();
+                pelattavaPeli.luoParempiTekoalyPeli().pelaa();
             } else {
                 break;
             }
