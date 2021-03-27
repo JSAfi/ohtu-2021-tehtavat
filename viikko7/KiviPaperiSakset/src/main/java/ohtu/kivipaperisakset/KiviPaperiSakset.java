@@ -6,6 +6,8 @@ public abstract class KiviPaperiSakset {
 
     // tämä on ns template metodi
     public void pelaa() {
+        System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
+
         Tuomari tuomari = new Tuomari();
 
         // aloitussiirrot

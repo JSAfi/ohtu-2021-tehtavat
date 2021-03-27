@@ -20,7 +20,6 @@ public class Valikko {
                     + "\nmuilla valinnoilla lopetataan");
 
             String vastaus = this.io.nextLine();
-            System.out.println("peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s");
 
             if (vastaus.endsWith("a")) {
                 pelattavaPeli.luoKaksinpeli().pelaa();
