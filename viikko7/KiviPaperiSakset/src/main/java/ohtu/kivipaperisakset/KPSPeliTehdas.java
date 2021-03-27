@@ -1,5 +1,6 @@
 package ohtu.kivipaperisakset;
 
+// luokan tarkoitus on tuottaa tietyntyyppisen pelin instanssi
 public class KPSPeliTehdas {
     static KiviPaperiSakset luoTekoalyPeli() {
         return new KPSTekoaly();
